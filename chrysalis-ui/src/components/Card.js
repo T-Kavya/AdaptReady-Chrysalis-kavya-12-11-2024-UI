@@ -3,7 +3,7 @@ import { Button as MuiButton } from "@mui/material";
 import "../scss/Card.scss";
 
 const Card = ({ title, description, onClick }) => (
-  <div class="card">
+  <div className  ="card">
     <h3>{title}</h3>
     <MuiButton
       variant="contained"

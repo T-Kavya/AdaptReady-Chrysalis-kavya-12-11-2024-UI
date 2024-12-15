@@ -70,12 +70,12 @@ const DishTable = ({ dishes, title }) => {
 
   const handleRowExpand = async (dishId) => {
     if (expandedRow === dishId) {
-      setExpandedRow(null); // Collapse if already expanded
+      setExpandedRow(null);
     } else {
-      setExpandedRow(dishId); // Expand this row
+      setExpandedRow(dishId);
       if (!expandedDetails[dishId]) {
         try {
-          const { data } = await getDishDetails(dishId); // Fetch details if not cached
+          const { data } = await getDishDetails(dishId);
           setExpandedDetails((prev) => ({ ...prev, [dishId]: data }));
         } catch (error) {
           console.error("Failed to fetch dish details:", error);
@@ -87,7 +87,6 @@ const DishTable = ({ dishes, title }) => {
   return (
     <div className="dish-suggester p-4">
 
-      {/* Suggested Dishes Table */}
       {dishes.length > 0 && (
         <div className="mt-8">
           <br></br>
@@ -146,9 +145,6 @@ const DishTable = ({ dishes, title }) => {
                       <TableRow>
                         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
                           <Collapse in={expandedRow === dish.name} timeout="auto" unmountOnExit className="details-collapse">
-                            {/* <Box margin={2}> */}
-                            {/* <DishDetails id={dish.name} /> */}
-                            {/* <strong>Details:</strong> {JSON.stringify(expandedDetails[dish.name], null, 2)} */}
                             <Box className="details-box">
                               <fieldset className="details-fieldset">
                                 <legend>
@@ -192,7 +188,6 @@ const DishTable = ({ dishes, title }) => {
                                 </div>
                               </fieldset>
                             </Box>
-                            {/* </Box> */}
 
                           </Collapse>
                         </TableCell>
@@ -214,8 +209,6 @@ const DishTable = ({ dishes, title }) => {
                 setPage(0);
               }}
             />
-
-
           </div>
         </div>
       )}

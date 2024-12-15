@@ -3,14 +3,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { searchDishes } from '../api/api';
-import logoImage from "../assets/Logo.jpeg";
-import { TextField } from '@mui/material';
-
-
 
 const Header = () => {
-
-
   const [search, setSearch] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const navigate = useNavigate();
@@ -51,14 +45,14 @@ const Header = () => {
 
   return (
     <header>
-      <div class="headers">
-        <div class="headers--left">
-          <div class="headers--left--logo">
-            <a class='logo' role="link" href="/" onClick={() => navigateRoute("")}>
+      <div className="headers">
+        <div className="headers--left">
+          <div className="headers--left--logo">
+            <a className='logo' role="link" href="/" onClick={() => navigateRoute("")}>
               Chrysalis
             </a>
           </div>
-          <div class="headers--left--items">
+          <div className="headers--left--items">
             <ul>
               {navigateMenu.map((item, index) => (
                 <li>
@@ -83,7 +77,7 @@ const Header = () => {
             
             <ul className="suggestions">
               {suggestions.map(sugg => (
-                <li key={sugg.id} onClick={() => navigate(`/dish/${sugg.id}`)}>
+                <li>
                   {sugg.name}
                 </li>
               ))}

@@ -12,8 +12,6 @@ img {
     display: flex;
     text-align: center;
     justify-content: space-around;
-    // background-color: black;
-    // color: white;
 }
 
 
@@ -39,33 +37,27 @@ img {
     &--items {
         display: flex;
         width: 80%;
-        justify-content: center; // Align items evenly
-    align-items: center; 
+        justify-content: center;
+        align-items: center;
         padding: 0;
         margin: 0;
 
-
         ul {
-
             list-style: none;
-            // padding-left: 7rem;
             margin: 0;
             padding: 0;
-
             display: flex;
-            // align-items: center;
-            // justify-content: center;
 
             li {
-                margin: 0 10px; // Reduce horizontal spacing
-            padding: 0;
+                margin: 0 10px;
+                padding: 0;
+
                 a {
                     color: black;
-                    // padding-left: 1rem;
                     text-decoration: none;
                     font-weight: 600;
-                    margin: 0;   // Remove any margin
-                padding: 5px 10px;
+                    margin: 0;
+                    padding: 5px 10px;
                 }
 
                 a:hover {
@@ -79,9 +71,7 @@ img {
 
 .search-box {
     width: 30vw;
-    // height: 20px;
     border-radius: 30px;
-    // border: 0px solid grey;
     position: relative;
     padding: 5px;
 
@@ -150,8 +140,9 @@ img {
     a {
         text-decoration: none;
         color: black;
-        
+
     }
+
     a:hover {
         text-decoration: underline;
     }

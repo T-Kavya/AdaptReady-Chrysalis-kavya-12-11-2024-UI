@@ -1,8 +1,5 @@
 import React from "react";
-import backgroundImage from "../assets/Background.jpeg";
-import background02 from "../assets/background02.jpeg";
 import background03 from "../assets/Background03.jpeg";
-
 import "../scss/Dashboard.scss";
 import Card from "./Card";
 import { useNavigate } from "react-router-dom";
@@ -25,11 +22,11 @@ const Dashboard = () => {
 
     return (
         <div>
-            <div class="image-container">
+            <div className="image-container">
                 <img src={background03} alt="Background Image" />
-                <div class="text">Order Food for delivery or <br /> pickup today </div>
+                <div className="text">Order Food for delivery or <br /> pickup today </div>
             </div>
-            <div class="cards">
+            <div className="cards">
                 {data.map((item) => (
                     <Card
                         key={item.id}

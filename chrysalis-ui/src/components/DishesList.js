@@ -1,39 +1,14 @@
 
 import React, { useState, useEffect, useMemo } from "react";
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  TableContainer,
-  TablePagination,
-  TableSortLabel,
-  Collapse,
-  IconButton,
-  Box,
-  Typography,
-} from "@mui/material";
-import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
-import { getDishes, getDishDetails } from "../api/api"; // Assuming `getDishDetails` is the API for fetching details
-import '../scss/DishesList.scss'; import Paper from '@mui/material/Paper';
+import { getDishes, getDishDetails } from "../api/api";
+import '../scss/DishesList.scss';
 import DishTable from './DishTable'
-// import Modal from 'react-modal';
-import { Modal, Button, Checkbox, FormControlLabel } from "@mui/material";
-
-
+import { Modal, Button, Checkbox,  Box, Typography, FormControlLabel } from "@mui/material";
 
 const DishesList = () => {
   const [dishes, setDishes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [order, setOrder] = useState("asc");
-  const [orderBy, setOrderBy] = useState();
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [expandedRow, setExpandedRow] = useState(null);
-  const [expandedDetails, setExpandedDetails] = useState({});
   const [filteredDishes, setFilteredDishes] = useState([]);
-  // const [isModalOpen, setIsModalOpen] = useState(false);
 
   const diet = ["vegetarian", "non vegetarian"];
   const flavor = ["spicy", "sweet", "bitter"];
@@ -84,12 +59,6 @@ const DishesList = () => {
     fetchDishes();
   }, []);
 
-  const handleSortRequest = (cellId) => {
-    const isAsc = orderBy === cellId && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
-    setOrderBy(cellId);
-  };
-
   const stableSort = (array, comparator) => {
     const stabilizedThis = array.map((el, index) => [el, index]);
     stabilizedThis.sort((a, b) => {
@@ -112,29 +81,6 @@ const DishesList = () => {
     return 0;
   };
 
-  const recordsAfterPagingAndSorting = useMemo(() => {
-    return stableSort(
-      dishes,
-      getComparator(order, orderBy)
-    ).slice(page * rowsPerPage, (page + 1) * rowsPerPage);
-  }, [dishes, order, orderBy, page, rowsPerPage]);
-
-  const handleRowExpand = async (dishId) => {
-    if (expandedRow === dishId) {
-      setExpandedRow(null); // Collapse if already expanded
-    } else {
-      setExpandedRow(dishId); // Expand this row
-      if (!expandedDetails[dishId]) {
-        try {
-          const { data } = await getDishDetails(dishId); // Fetch details if not cached
-          setExpandedDetails((prev) => ({ ...prev, [dishId]: data }));
-        } catch (error) {
-          console.error("Failed to fetch dish details:", error);
-        }
-      }
-    }
-  };
-
   const [isModalOpen, setModalOpen] = useState(false);
   const [checkedItems, setCheckedItems] = useState({});
   const openModal = () => setModalOpen(true);
@@ -154,7 +100,6 @@ const DishesList = () => {
 
     });
     console.log("chaeckedItems: ", checkedItems);
-
   };
 
 
@@ -194,51 +139,7 @@ const DishesList = () => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div class="dishlist">
-
-
-      {/* <div>
-        <button onClick={openModal}>Open Modal</button>
-
-        {isModalOpen && (
-          <div style={modalStyle}>
-            <div style={modalContentStyle}>
-              <h2>Filter</h2>
-              <div className="Diet">
-                {Object.entries(categories).map(([categoryName, items]) => (
-                  <div key={categoryName} className="category">
-                    <h3 className="category-title">
-                      {categoryName.toUpperCase()}
-                    </h3>
-                    <div className="checkbox-grid">
-                      {items.flat().map((item) => (
-                        <div key={item} className="checkbox-item">
-                          <input
-                            type="checkbox"
-                            id={`${categoryName}-${item}`}
-                            name={item}
-                            checked={checkedItems[categoryName]?.[item] || false}
-                            onChange={() => {
-                              handleCheckboxChange(categoryName, item);
-                              console.log("Checked Items: ", categoryName, item);
-                            }}
-                          />
-                          <label htmlFor={`${categoryName}-${item}`}>
-                            {item}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <p>This is a modal content.</p>
-              <button onClick={closeModal}>Close Modal</button>
-            </div>
-          </div>
-        )}
-      </div> */}
-
+    <div className="dishlist">
       <div>
         <div id='filter-button'>
           <Button variant="contained" onClick={openModal}>
@@ -290,153 +191,12 @@ const DishesList = () => {
         </Modal>
       </div>
       <DishTable dishes={filteredDishes} title="Dish List" />
-
-      {/* <TableContainer component={Paper}>
-        
-        <Table stickyHeader sx={{ minWidth: 650 }}>
-          <TableHead>
-            <TableRow>
-              <TableCell />
-              {headCells.map((headCell) => (
-                <TableCell
-                  key={headCell.id}
-                  sortDirection={orderBy === headCell.id ? order : false}
-                >
-                  {headCell.disableSorting ? (
-                    headCell.label
-                  ) : (
-                    <TableSortLabel
-                      active={orderBy === headCell.id}
-                      direction={orderBy === headCell.id ? order : "asc"}
-                      onClick={() => handleSortRequest(headCell.id)}
-                    >
-                      {headCell.label}
-                    </TableSortLabel>
-                  )}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {recordsAfterPagingAndSorting.map((dish) => (
-              <React.Fragment key={dish.id}>
-                <TableRow hover>
-                  <TableCell>
-                    <IconButton
-                      size="small"
-                      onClick={() => handleRowExpand(dish.name)}
-                    >
-                      {expandedRow === dish.name ? (
-                        <KeyboardArrowUp />
-                      ) : (
-                        <KeyboardArrowDown />
-                      )}
-                    </IconButton>
-                  </TableCell>
-                  <TableCell>{dish.name}</TableCell>
-                  <TableCell>{dish.diet}</TableCell>
-                  <TableCell>{dish.prep_time}</TableCell>
-                  <TableCell>{dish.cook_time}</TableCell>
-                  <TableCell>{dish.region}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-                    <Collapse in={expandedRow === dish.name} timeout="auto" unmountOnExit className="details-collapse">
-                      <Box className="details-box">
-                        <fieldset className="details-fieldset">
-                          <legend>
-                            <Typography variant="h6" className="details-title">
-                              {dish.name}
-                            </Typography>
-                          </legend>
-                          <div className="details-grid">
-                            <div className="details-item">
-                              <strong>Ingredients:</strong>
-                              <span>{dish.ingredients.join(', ')}</span>
-                            </div>
-                            <div className="details-item">
-                              <strong>Diet:</strong>
-                              <span>{dish.diet}</span>
-                            </div>
-                            <div className="details-item">
-                              <strong>Prep Time:</strong>
-                              <span>{dish.prep_time} mins</span>
-                            </div>
-                            <div className="details-item">
-                              <strong>Cooking Time:</strong>
-                              <span>{dish.cook_time} mins</span>
-                            </div>
-                            <div className="details-item">
-                              <strong>Flavor:</strong>
-                              <span>{dish.flavor_profile}</span>
-                            </div>
-                            <div className="details-item">
-                              <strong>Course:</strong>
-                              <span>{dish.course}</span>
-                            </div>
-                            <div className="details-item">
-                              <strong>State:</strong>
-                              <span>{dish.state}</span>
-                            </div>
-                            <div className="details-item">
-                              <strong>Region:</strong>
-                              <span>{dish.region}</span>
-                            </div>
-                          </div>
-                        </fieldset>
-                      </Box>
-                      {/* </Box> */}
-
-      {/* </Collapse>
-                  </TableCell>
-                </TableRow>
-              </React.Fragment>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer> */}
-
-      {/* <TablePagination
-        component="div"
-        page={page}
-        rowsPerPageOptions={[5, 10, 25]}
-        rowsPerPage={rowsPerPage}
-        count={dishes.length}
-        onPageChange={(event, newPage) => setPage(newPage)}
-        onRowsPerPageChange={(event) => {
-          if(parseInt(event.target.value, 10) > 0) {
-            setRowsPerPage(parseInt(event.target.value, 10));
-            setPage(0);
-          }
-          
-        }}
-      /> */}
-
-      {/* </CardContent>
-       </Card>   */}
-
-
-
     </div>
   );
 
 };
 
 export default DishesList;
-// const modalStyle = {
-//   // position: "fixed",
-//   top: 0,
-//   left: 0,
-//   width: "100vw",
-//   maxHeight: "60vh",
-//   backgroundColor: "white",
-//   display: "flex",
-//   alignItems: "center",
-//   justifyContent: "center",
-//   overFlow: "auto",
-//   position: 'absolute',
-//   zIndex: '32'
-// };
 
 const modalStyle = {
   position: "absolute",
@@ -452,77 +212,3 @@ const modalStyle = {
   maxHeight: '80vh',
   overflow: 'auto'
 };
-
-const modalContentStyle = {
-  backgroundColor: "#fff",
-  // padding: "20px",
-  borderRadius: "5px",
-  width: "100vw",
-  maxHeight: "100vh",
-  textAlign: "center",
-};
-
-// import React, { useState, useEffect } from 'react';
-// import { Link } from 'react-router-dom';
-
-// // interface Dish {
-// //   id: number;
-// //   name: string;
-// //   diet: string;
-// //   prep_time: string;
-// //   cook_time: string;
-// //   state: string;
-// // }
-
-// function DishesList() {
-//   const [dishes, setDishes] = useState([]);
-//   const [page, setPage] = useState(1);
-//   const [sortBy, setSortBy] = useState('name');
-//   const [filterDiet, setFilterDiet] = useState('');
-
-//   useEffect(() => {
-//     fetch(`http://localhost:3001/api/dishes?page=${page}&sortBy=${sortBy}&diet=${filterDiet}`)
-//       .then(res => res.json())
-//       .then(data => setDishes(data));
-//   }, [page, sortBy, filterDiet]);
-
-//   return (
-//     <div className="dishes-list">
-//       <table>
-//         <thead>
-//           <tr>
-//             <th onClick={() => setSortBy('name')}>Name</th>
-//             <th onClick={() => setSortBy('prep_time')}>Prep Time</th>
-//             <th onClick={() => setSortBy('cook_time')}>Cook Time</th>
-//             <th>
-//               <select onChange={(e) => setFilterDiet(e.target.value)}>
-//                 <option value="">All</option>
-//                 <option value="vegetarian">Vegetarian</option>
-//                 <option value="non-vegetarian">Non-Vegetarian</option>
-//               </select>
-//             </th>
-//             <th>State</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {dishes.map(dish => (
-//             <tr key={dish.name}>
-//               <td><Link to={`/dish/${dish.name}`}>{dish.name}</Link></td>
-//               <td>{dish.prep_time}</td>
-//               <td>{dish.cook_time}</td>
-//               <td>{dish.diet}</td>
-//               <td>{dish.state}</td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
-//       <div className="pagination">
-//         <button onClick={() => setPage(p => Math.max(1, p - 1))}>Previous</button>
-//         <span>Page {page}</span>
-//         <button onClick={() => setPage(p => p + 1)}>Next</button>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default DishesList;
