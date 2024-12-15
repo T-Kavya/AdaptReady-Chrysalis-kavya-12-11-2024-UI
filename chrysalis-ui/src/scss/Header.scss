@@ -1,0 +1,158 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+img {
+    width: 90px;
+}
+
+.headers {
+    display: flex;
+    text-align: center;
+    justify-content: space-around;
+    // background-color: black;
+    // color: white;
+}
+
+
+.headers--left {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+
+    &--logo {
+        width: 20%;
+
+        a {
+            text-decoration: none;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333131d0;
+            text-shadow: 0px 0px 5px rgb(238, 209, 154);
+
+        }
+    }
+
+    &--items {
+        display: flex;
+        width: 80%;
+        justify-content: center; // Align items evenly
+    align-items: center; 
+        padding: 0;
+        margin: 0;
+
+
+        ul {
+
+            list-style: none;
+            // padding-left: 7rem;
+            margin: 0;
+            padding: 0;
+
+            display: flex;
+            // align-items: center;
+            // justify-content: center;
+
+            li {
+                margin: 0 10px; // Reduce horizontal spacing
+            padding: 0;
+                a {
+                    color: black;
+                    // padding-left: 1rem;
+                    text-decoration: none;
+                    font-weight: 600;
+                    margin: 0;   // Remove any margin
+                padding: 5px 10px;
+                }
+
+                a:hover {
+                    text-decoration: underline;
+                }
+
+            }
+        }
+    }
+}
+
+.search-box {
+    width: 30vw;
+    // height: 20px;
+    border-radius: 30px;
+    // border: 0px solid grey;
+    position: relative;
+    padding: 5px;
+
+    input {
+        width: 20vw;
+        height: 7vh;
+        padding: 10px;
+        border-radius: 40px;
+
+    }
+
+    .MuiFormControl-root {
+        border-radius: 30px;
+
+    }
+}
+
+.suggestions {
+    list-style: none;
+    position: absolute;
+    z-index: 99;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: 0;
+    border-radius: 12px;
+    padding: 16px 0 16px;
+    width: 20vw;
+    // height: 50vh; 
+    // left: ;
+    max-height: 65vh;
+    overflow-y: auto;
+
+    li {
+        // padding: 1px;
+        display: flex;
+        text-align: left;
+        padding-left: 20px;
+    }
+}
+
+::ng-deep {
+
+    .MuiFormControl-root {
+        width: 40vw;
+        border-radius: 30px;
+    }
+}
+
+.footer {
+    height: 56px;
+    text-align: right;
+    padding: 1rem * 0.5 1rem;
+    max-width: 2560px;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    bottom: 0;
+    position: fixed;
+    margin-top: 100px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 200;
+
+    a {
+        text-decoration: none;
+        color: black;
+        
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+}

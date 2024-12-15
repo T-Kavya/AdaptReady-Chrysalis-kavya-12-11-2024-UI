@@ -1,0 +1,35 @@
+.image-container {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    width: 100vw;
+    height: 40vh;
+    img {
+        width: 100%;
+    }
+}
+
+div {
+    padding: 0px;
+}
+
+.image-container .text {
+    position: absolute;
+    top: 80%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    background-color: rgba(62, 61, 61, 0);
+    padding: 10px;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.cards {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 100px;
+    padding: 70px;
+}

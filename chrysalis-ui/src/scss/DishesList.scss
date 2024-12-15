@@ -1,0 +1,221 @@
+div {
+    padding: 16px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding-bottom: 100px;
+
+}
+.dishlist {
+    padding: 20px;
+}
+
+// .-MuiTableContainer-root 
+
+// Table container styling
+.MuiTableContainer-root {
+    width:90%;
+    overflow-x: flow;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 8px solid;
+    // border: 1px solid;
+    // margin: 50px;
+}
+
+// Table header styling
+.MuiTableHead-root {
+    background-color: #eceff1;
+}
+
+.MuiTableCell-head {
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #37474f;
+}
+
+// Table rows styling
+.MuiTableRow-root {
+    &:nth-of-type(even) {
+        background-color: #f5f5f5;
+    }
+
+    &:hover {
+        background-color: #e0f7fa;
+        cursor: pointer;
+    }
+}
+
+.MuiTableCell-body {
+    font-size: 14px;
+    color: #546e7a;
+}
+
+// Table sort label styling
+.MuiTableSortLabel-root {
+    color: #37474f;
+
+    &:hover {
+        color: #01579b;
+    }
+
+    &.Mui-active {
+        color: #01579b;
+
+        .MuiTableSortLabel-icon {
+            color: #01579b;
+        }
+    }
+}
+
+// Pagination styling
+.MuiTablePagination-root {
+    margin-top: 8px;
+    background-color: #eceff1;
+    border-radius: 8px;
+    padding: 8px;
+    margin-bottom: 100px;
+
+}
+
+.MuiTablePagination-select {
+    font-size: 14px;
+    color: #546e7a;
+}
+
+.MuiTablePagination-actions {
+    color: #546e7a;
+}
+
+// Loading message styling
+p {
+    font-size: 16px;
+    text-align: center;
+    color: #546e7a;
+    padding: 20px;
+}
+
+/* Collapse section styles */
+.details-collapse {
+    margin: 10px 0;
+
+    .details-box {
+        border: 1px solid #b2dfdb;
+        border-radius: 8px;
+        padding: 16px;
+        background-color: #e0f2f1;
+    }
+
+    .details-fieldset {
+        border: 2px solid #004d40;
+        padding: 12px;
+        border-radius: 8px;
+
+        legend {
+            font-size: 18px;
+            color: #004d40;
+            font-weight: bold;
+            padding: 0 8px;
+        }
+    }
+
+    .details-title {
+        margin-bottom: 12px;
+        font-size: 20px;
+        color: #00796b;
+    }
+
+    .details-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+
+        .details-item {
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            border: 1px solid #b2dfdb;
+            border-radius: 8px;
+            padding: 8px;
+            font-size: 14px;
+            color: #424242;
+
+            strong {
+                color: #00796b;
+                font-size: 14px;
+                margin-bottom: 4px;
+            }
+
+            span {
+                font-size: 14px;
+            }
+        }
+    }
+}
+.dishlist {
+    max-width: 100%;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    overflow-x: auto;
+}
+
+/* Categories Container */
+.categories-container {
+    display: flex;
+    gap: 20px;
+    /* Space between categories */
+    flex-wrap: wrap;
+    /* Wrap to next row if needed */
+}
+
+/* Category Styles */
+.category {
+    min-width: 250px;
+    background: #f1f1f1;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.category-title {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+}
+
+/* Checkbox Grid */
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-item input {
+    margin-right: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .categories-container {
+        flex-direction: column;
+    }
+
+    .checkbox-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+}
+
+#filter-button {
+    right: 0;
+    float: right;
+    padding-right: 10px;
+}
