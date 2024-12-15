@@ -73,5 +73,5 @@ src/ ├── components/
 Created script to convert the CSV file format to JSOn file format. 
 •⁠  ⁠In Script file handled all special cases for
 	- converting ingrediets to array of strings format
-	- hamdling '-1' value for all attributes like prep_time, cook_time, flavor_profiles, region and state.
+	- handling '-1' value for all attributes like prep_time, cook_time, flavor_profiles, region and state.
 •⁠  ⁠After handling all cases converted to JSON format and created file in the same folder.
